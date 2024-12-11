@@ -1,5 +1,6 @@
 import { BlogSection } from "@/components/BlogSection";
 import { Hero } from "@/components/hero/Hero";
+import Footer from "@/components/layouts/Footer";
 import PlantShop from "@/components/PlantShop";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <PlantShop />
       <BlogSection />
+      <Footer />
     </div>
   );
 }

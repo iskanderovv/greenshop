@@ -1,4 +1,8 @@
-import { BlogPost, PromoSection } from "@/types"
+import { BlogPost, PromoSection } from "@/types";
+import blog1 from "../../public/blog1.png";
+import blog2 from "../../public/blog2.png";
+import blog3 from "../../public/blog3.png";
+import blog4 from "../../public/blog4.png";
 
 export const blogPosts: BlogPost[] = [
   {
@@ -7,7 +11,7 @@ export const blogPosts: BlogPost[] = [
     description: "Cacti and succulents are easy care plants for any home or patio.",
     date: "September 15",
     readTime: "5 minutes",
-    image: "/placeholder.svg?height=200&width=300",
+    image: blog1,
     slug: "cactus-succulent-care-tips"
   },
   {
@@ -16,7 +20,7 @@ export const blogPosts: BlogPost[] = [
     description: "Best in hanging baskets. Prefers medium to high light.",
     date: "September 13",
     readTime: "5 minutes",
-    image: "/placeholder.svg?height=200&width=300",
+    image: blog2,
     slug: "top-10-succulents-home"
   },
   {
@@ -25,7 +29,7 @@ export const blogPosts: BlogPost[] = [
     description: "Cacti and succulents thrive in containers and because most are...",
     date: "September 15",
     readTime: "3 minutes",
-    image: "/placeholder.svg?height=200&width=300",
+    image: blog3,
     slug: "cacti-succulent-care"
   },
   {
@@ -34,7 +38,7 @@ export const blogPosts: BlogPost[] = [
     description: "The benefits of houseplants are endless. In addition to...",
     date: "September 15",
     readTime: "2 minutes",
-    image: "/placeholder.svg?height=200&width=300",
+    image: blog4,
     slug: "best-houseplants-room-by-room"
   }
 ]

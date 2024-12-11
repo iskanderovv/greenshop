@@ -7,11 +7,12 @@ export interface Plant {
   category: string;
   isNew?: boolean;
   isSale?: boolean;
+  newArrival?: boolean;
 }
 
 export interface Category {
-  name: string;
-  count: number;
+  category_id: string;
+  category_name: string
 }
 
 export interface BlogPost {
@@ -20,7 +21,7 @@ export interface BlogPost {
   description: string;
   date: string;
   readTime: string;
-  image: string;
+  image: string | StaticImageData;
   slug: string;
 }
 
@@ -30,10 +31,32 @@ export interface PromoSection {
   buttonText: string;
 }
 
-
 export interface FormValues {
   username: string;
   password: string;
   token: string
   role: string
+}
+
+interface PromoSectionProps {
+  title: string;
+  subtitle: string;
+  buttonText: string;
+}
+
+export interface Product {
+  product_id: string;
+  product_name: string;
+  category_id: string;
+  short_description: string;
+  product_description: string;
+  product_status: string;
+  size: string[];
+  count: number;
+  cost: number;
+  discount: number;
+  tags: string[];
+  liked: boolean;
+  basket: boolean;
+  image_url: string[];
 }

@@ -1,6 +1,7 @@
-import { blogPosts, promoSections } from "@/data/blog-data"
-import { PromoSection } from "@/components/PromoSection"
-import { BlogPostCard } from "@/components/custom/BlogPostCard"
+import { blogPosts, promoSections } from "@/data/blog-data";
+import { PromoSection } from "@/components/PromoSection";
+import { BlogPostCard } from "@/components/BlogPostCard";
+
 
 export function BlogSection() {
   return (
@@ -20,7 +21,8 @@ export function BlogSection() {
         <div className="text-center space-y-4">
           <h2 className="text-2xl font-semibold">Our Blog Posts</h2>
           <p className="text-muted-foreground">
-            We are an online plant shop offering a wide range of cheap and trendy plants.
+            We are an online plant shop offering a wide range of cheap and
+            trendy plants.
           </p>
         </div>
 
@@ -39,6 +41,5 @@ export function BlogSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-

@@ -24,24 +24,24 @@ export function BlogPostCard({
       <CardContent className="p-0">
         <div className="relative aspect-[3/2] ">
           <Image
-            src={"https://cdn.pixabay.com/photo/2022/08/05/18/50/houseplant-7367379_1280.jpg"}
+            src={image}
             alt={title}
             fill
             className="object-cover"
           />
         </div>
         <div className="p-4 space-y-2">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="flex text-[#55B96C] items-center gap-2 text-sm text-muted-foreground">
             <span>{date}</span>
             <span>•</span>
             <span>Read in {readTime}</span>
           </div>
           <h3 className="font-semibold">{title}</h3>
-          <p className="text-sm text-muted-foreground">{description}</p>
+          <p className="text-sm text-[#727272] text-muted-foreground">{description}</p>
         </div>
       </CardContent>
       <CardFooter className="px-4 pb-4">
-        <Link href={`/blog/${slug}`} className="text-[#55B96C] hover:text-[#4ca861] text-sm font-medium">
+        <Link href={`/blog/${slug}`} className="hover:text-[#4ca861] text-sm font-medium">
           Read More →
         </Link>
       </CardFooter>

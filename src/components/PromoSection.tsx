@@ -2,12 +2,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import promoImg from "../../public/blog.png";
+import { PromoSectionProps } from "@/types";
 
-interface PromoSectionProps {
-  title: string;
-  subtitle: string;
-  buttonText: string;
-}
+
 
 export function PromoSection({
   title,
@@ -15,18 +13,18 @@ export function PromoSection({
   buttonText,
 }: PromoSectionProps) {
   return (
-    <Card className="bg-white">
-      <CardContent className="flex bg-[#FBFBFB] justify-between items-center gap-x-4 text-center p-6 space-y-4">
+    <div className="bg-white">
+      <div className="flex bg-[#FBFBFB] justify-between items-center gap-x-4 text-center p-6 space-y-4">
         <Image
-          src="https://cdn.pixabay.com/photo/2022/08/05/18/50/houseplant-7367379_1280.jpg"
+          src={promoImg}
           alt="Image"
           width={150}
           height={150}
           className="rounded-md size-auto"
         />
-        <div className="flex flex-col items-end">
-          <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
-          <p className="text-sm text-muted-foreground max-w-[15rem]">
+        <div className="flex w-3/4 flex-col text-right items-end">
+          <h2 className="text-lg leading-6 max-w-[160px] font-semibold tracking-tight">{title}</h2>
+          <p className="text-sm text-muted-foreground pt-3 pb-5 max-w-[15rem]">
             {subtitle}
           </p>
           <Button
@@ -40,7 +38,7 @@ export function PromoSection({
             </Link>
           </Button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

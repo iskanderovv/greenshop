@@ -4,15 +4,25 @@ import Link from "next/link";
 import { BsCart } from "react-icons/bs";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { LogOut } from "lucide-react";
+import { Heart, LogOut } from "lucide-react";
+import { useEffect, useState } from "react";
+import { getCartProducts } from "@/actions/data";
 
 export default function Navbar() {
+  const [lenthProduct, setLenthProduct] = useState(0);
   const links = [
     { name: "Home", href: "/" },
     { name: "Shop", href: "/shop" },
     { name: "Plant Care", href: "/plant-care" },
     { name: "Blogs", href: "/blogs" },
   ];
+
+  useEffect(() => {
+    (async () => {
+      const cartProducts = await getCartProducts();
+      setLenthProduct(cartProducts.TotalCount);
+    })();
+  }, []);
 
   return (
     <header className="container border-b border-gray-200 py-3">
@@ -37,7 +47,15 @@ export default function Navbar() {
           <Link href="/search">Search</Link>
           <Link href="/cart" className="relative">
             <BsCart size={20} />
-            {/* <Badge className="absolute -top-2 -right-2 size-4 hover:bg-primary bg-primary flex justify-center items-center">{cartLength}</Badge> */}
+            <Badge className="absolute -top-2 -right-2 size-4 hover:bg-primary bg-primary flex justify-center items-center">
+            {lenthProduct}
+            </Badge>
+          </Link>
+          <Link href="/favorites" className="relative">
+            <Heart size={20} />
+            <Badge className="absolute -top-2 -right-2 size-4 hover:bg-primary bg-primary flex justify-center items-center">
+              0
+            </Badge>
           </Link>
           <Link href={"/login"}>
             <Button className="bg-primary hover:bg-primary/90 px-8 py-0">

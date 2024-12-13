@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { PriceRangeSlider } from "@/components/custom/price-range-slider";
 import { CategoryFilter } from "@/components/custom/category-filter";
@@ -15,8 +14,10 @@ import {
 import Image from "next/image";
 import { Category, Product } from "@/types";
 import { getAllProducts, getCategories } from "@/actions/data";
+import SizeFilter from "./custom/size-filter";
 
 export default function PlantShop() {
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [sortBy, setSortBy] = useState("featured");
@@ -30,12 +31,14 @@ export default function PlantShop() {
     setSelectedCategory(null);
     setPriceRange([0, 500]);
     setFilterByTag("all");
+    setSelectedSize(null);
   };
 
   const filteredProducts = products
     .filter(
       (product) =>
         (!selectedCategory || product.category_id === selectedCategory) &&
+        (!selectedSize || product.size.includes(selectedSize)) &&
         product.cost >= priceRange[0] &&
         product.cost <= priceRange[1] &&
         (filterByTag === "all" ||
@@ -65,7 +68,6 @@ export default function PlantShop() {
     })();
   }, []);
 
-
   return (
     <div className="container mx-auto min-h-screen px-4 py-8">
       <div className="grid grid-cols-4 gap-8">
@@ -81,6 +83,11 @@ export default function PlantShop() {
             value={priceRange}
             onValueChange={setPriceRange}
           />
+          <SizeFilter
+            products={products} 
+            selectedSize={selectedSize} 
+            onSelectedSize={setSelectedSize}
+          />
           <Image src={superSaleImg} alt="ads" width={310} height={300} />
         </aside>
         <div className="col-span-3 space-y-6">
@@ -90,7 +97,7 @@ export default function PlantShop() {
                 className={`cursor-pointer font-bold text-xl ${
                   filterByTag === "all" ? "text-green-600" : ""
                 }`}
-                onClick={() => setFilterByTag("all")}
+                onClick={() => resetFilters()}
               >
                 All Plants
               </p>
@@ -123,7 +130,7 @@ export default function PlantShop() {
               </SelectContent>
             </Select>
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {filteredProducts.map((product) => (
               <ProductCard key={product.product_id} product={product} />
             ))}

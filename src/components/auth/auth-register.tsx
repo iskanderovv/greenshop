@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { registerSchema, verifyEmailSchema } from "@/lib/validation";
-import { registerUser, verifyEmail } from "@/actions/create";
+import { registerUser, verifyEmail } from "@/actions/auth-action";
 import { toast } from "sonner";
 
 export function AuthRegister() {
@@ -52,13 +52,12 @@ export function AuthRegister() {
     setIsSubmitting(true);
     try {
       const response = await registerUser(data);
-      toast.success(response.Response || "Registration successful!");
-      form.reset();
+      toast.success(response.message || response.Response || "Registration successful!");
       setShowVerifyInput(true);
       localStorage.setItem("email", data.email);
       verifyForm.setValue("emailVerify", data.email);
       console.log(response);
-      
+      form.reset();
     } catch (error: any) {
       toast.error(error.message || "Registration failed!");
     } finally {

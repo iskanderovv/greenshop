@@ -13,45 +13,53 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { forgetPasswordSchema } from "@/lib/validation";
-import { loginUser } from "@/actions/create";
 import { toast } from "sonner";
 import { useState } from "react";
+import { setNewPassword } from "@/actions/auth-action";
 import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { resetSchema } from "@/lib/validation";
 
-export function AuthLogin() {
+type ResetFormData = z.infer<typeof resetSchema>;
+
+interface ResetPasswordProps {
+  email: string;
+}
+
+export function ResetPassword({ email }: ResetPasswordProps) {
   const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const form = useForm<z.infer<typeof forgetPasswordSchema>>({
-    resolver: zodResolver(forgetPasswordSchema),
+  const [showPassword, setShowPassword] = useState(false);
+
+  const form = useForm<ResetFormData>({
+    resolver: zodResolver(resetSchema),
     defaultValues: {
-      password: "",
-      email: "",
+      email: email,
+      newPassword: "",
       otp: "",
     },
   });
 
-  async function onSubmit(data: z.infer<typeof forgetPasswordSchema>) {
-    console.log(data);
+  async function handleSubmit(data: ResetFormData) {
     setIsSubmitting(true);
     try {
-      const response = await loginUser(data);
-      localStorage.setItem("token", response.access_token);
-      toast.success("Login successful!");
-      form.reset();
-      router.push("/dashboard");
-    } catch (error: any) {
-      toast.error(error.message || "Login failed!");
-    } finally {
+      const res = await setNewPassword(data);
       setIsSubmitting(false);
+      toast.success("Password reset successfully");
+      form.reset();
+      router.push("/");
+      console.log(res);
+      
+    } catch (err) {
+      toast.error("Something went wrong");
+      setIsSubmitting(false);
+      console.log(err);
     }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="email"
@@ -59,7 +67,7 @@ export function AuthLogin() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your email address" {...field} />
+                <Input {...field} disabled />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -67,15 +75,15 @@ export function AuthLogin() {
         />
         <FormField
           control={form.control}
-          name="password"
+          name="newPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>New Password</FormLabel>
               <FormControl>
                 <div className="relative">
                   <Input
                     type={showPassword ? "text" : "password"}
-                    placeholder="Password"
+                    placeholder="Enter new password"
                     {...field}
                   />
                   <Button
@@ -100,16 +108,25 @@ export function AuthLogin() {
             </FormItem>
           )}
         />
-        <div className="text-right">
-          <Button variant="link" className="p-0 text-green-600">
-            Forgot Password?
-          </Button>
-        </div>
+        <FormField
+          control={form.control}
+          name="otp"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>OTP</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter OTP" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button
           type="submit"
           className="w-full bg-green-600 hover:bg-green-700"
+          disabled={isSubmitting}
         >
-          {isSubmitting ? "Logging in..." : "Login"}
+          {isSubmitting ? "Resetting..." : "Reset Password"}
         </Button>
       </form>
     </Form>

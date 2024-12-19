@@ -66,3 +66,14 @@ export const forgetPasswordSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
   otp: z.string(),
 });
+
+
+export const forgotEmailSchema = z.object({
+  usernameoremail: z.string().email({ message: "Please enter a valid email address." }),
+})
+
+export const resetSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  newPassword: z.string().min(8, "Password must be at least 8 characters"),
+  otp: z.string().length(6, "OTP must be 6 characters"),
+});

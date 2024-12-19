@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layouts/Navbar";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/sonner";
+import Footer from "@/components/layouts/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   title: {
     default: "Green Shop",
     template: "%s | Green Shop",
-  }
+  },
 };
 
 export default function RootLayout({
@@ -36,6 +37,8 @@ export default function RootLayout({
         <NextTopLoader color="#46a358" showSpinner={false} />
         <Navbar />
         <main>{children}</main>
+        <Footer />
+
         <Toaster />
       </body>
     </html>

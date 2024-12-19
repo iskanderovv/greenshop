@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function AuthLogin() {
   const router = useRouter();
@@ -33,7 +34,6 @@ export function AuthLogin() {
   });
 
   async function onSubmit(data: z.infer<typeof loginSchema>) {
-    console.log(data);
     setIsSubmitting(true);
     try {
       const response = await loginUser(data);
@@ -101,7 +101,7 @@ export function AuthLogin() {
         />
         <div className="text-right">
           <Button variant="link" className="p-0 text-green-600">
-            Forgot Password?
+            <Link href="/forget-password">Forgot password?</Link>
           </Button>
         </div>
         <Button

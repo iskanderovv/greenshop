@@ -37,9 +37,8 @@ export async function getWishlists() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
-      
     });
 
     if (!response.ok) {
@@ -58,9 +57,8 @@ export async function getCartProducts() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
-      
     });
 
     if (!response.ok) {
@@ -73,3 +71,45 @@ export async function getCartProducts() {
   }
 }
 
+export async function getProductsById(id: string) {
+  try {
+    const response = await fetch(`${baseUrl}/product/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch product");
+    }
+
+    return await response.json();
+  } catch (error) {
+    return { message: "Failed to fetch product", error };
+  }
+}
+
+export async function getProductsByTags(tag: string) {
+  try {
+    const response = await fetch(
+      `${baseUrl}/products?page=1&limit=5&tag=${tag}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch categories");
+    }
+
+    return await response.json();
+  } catch (error) {
+    return { message: "Failed to fetch categories", error };
+  }
+}

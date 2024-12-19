@@ -44,4 +44,3 @@ export async function addToCart(id: string) {
     return { message: "Failed to fetch wishlists", error };
   }
 }
-

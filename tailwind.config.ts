@@ -18,6 +18,8 @@ export default {
   	extend: {
   		colors: {
 			primary: "#46a358",
+			secondary: "#727272",
+			tertiary: "#3D3D3D",
   			background: 'var(--background)',
   			foreground: 'var(--foreground)'
   		},
